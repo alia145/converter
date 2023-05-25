@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <title>Base Number Converter</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
+  
+  <!-- Custom CSS -->
+  <style>
+  /* CSS styles for the page */
+  
+  .topnav {
+  overflow: hidden;
+  background-color: #13074e;
+}
+
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 10px 20px;
+  text-decoration: none;
+  font-size: 20px;
+}
+
+.topnav-left a img {
+    height: 50px; 
+    width: auto; 
+    vertical-align: middle;
+  }
+
+.topnav-right {
+  float: right;
+}
+  body {
+      margin: 0;
+	  padding-bottom: 50px; /* Add some padding at the bottom for the footer */
+	  background-image: url("calc1.jpg");
+	  background-repeat: no-repeat;
+	  background-attachment: fixed;
+	  background-size: cover;
+       }
+
+	 .no2 {
+	 margin-top: 50px;
+	 margin-bottom: 20px;
+	 
+	 }
+	 /*.no1{
+	   background-color: lightblue;
+       padding-top: 50px;
+       padding-right: 30px;
+       padding-bottom: 50px;
+       padding-left: 80px;
+	   margin-left: 20px;
+	   float: left;
+       width: 300px;}*/
+	   
+    h1 {
+      font-family: Garamond, serif;
+      font-size: 2.0rem;
+      text-align: center;
+      margin-bottom: 30px;
+      text-decoration: underline;
+      font-weight: bold;
+    }
+
+    #calcform 
+	{
+      max-width: 800px;
+      padding: 20px;
+      background: #88c6ff;
+      border: 1px solid #10008c;
+      border-radius: 7px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    #calcform button img 
+	{
+      filter: invert(100%);
+    }
+
+    #calcform .input-group sub 
+	{
+      font-size: large;
+    }
+
+    .btn span 
+	{
+      font-weight: bold;
+      font-size: large;
+    }
+
+    #calcform input::-webkit-outer-spin-button,
+    #calcform input::-webkit-inner-spin-button 
+	{
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    #calcform input[type=number] 
+	{
+      -moz-appearance: textfield;
+    }
+	
+	/* Style the footer */
+	footer {
+	  position: fixed;
+	  left: 0;
+	  bottom: 0;
+	  width: 100%;
+	  background-color: #13074e;
+	  padding: 0px;
+	  text-align: center;
+	  color: white;
+	  }
+  
+  /* Custom CSS for container layout */
+    .container {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .container .input-container {
+      flex: 1;
+      margin-right: 20px;
+    }
+
+    .container .output-container {
+      flex: 1;
+      margin-left: 20px;
+    }
+  </style>
+</head>
+
+<body>
+
+	<!-- Header -->
+	<header>
+	  <div class="topnav">
+		<div class="topnav-left">
+		  <a href="#"><img src="logo.png" alt="Logo"></a>
+		</div>
+		<div class="topnav-right">
+		  <a href="conv.html">Converter</a>
+		  <a href="About.html">About Us</a>
+		</div>
+	  </div>
+	</header>
+
+  <!-- Base Number Converter form -->
+  <div class="no2" >
+  <form id="calcform" name="calcform" autocomplete="off">
+    <h1>Base Number Converter</h1>
+	
+	<!-- Container for input fields and buttons -->
+      <div class="container">
+        <div class="input-container">
+          <!-- Unit selection -->
+          <div id="unitnav" class="form-row">
+            <div class="form-group col">
+              <label for="unit1">From</label>
+              <!-- Options for the "From" unit -->
+              <select id="unit1" class="form-control">
+                <option value="binary" selected data-input-label="Enter binary number" data-base="2">Binary</option>
+                <option value="decimal" data-input-label="Enter decimal number" data-base="10">Decimal</option>
+                <option value="hex" data-input-label="Enter hexadecimal number" data-base="16">Hexadecimal</option>
+              </select>
+            </div>
+
+            <div class="form-group col">
+              <label for="unit2">To</label>
+              <!-- Options for the "To" unit -->
+              <select id="unit2" class="form-control">
+                <option value="binary">Binary</option>
+                <option value="decimal" selected>Decimal</option>
+                <option value="hex">Hexadecimal</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Input field -->
+          <div class="form-group">
+            <label for="x" id="xlabel">Enter binary number</label>
+            <div class="input-group">
+              <input type="text" id="x" name="x" class="form-control form-control-lg" required autofocus>
+              <div class="input-group-append">
+                <span class="input-group-text"><sub id="xbase">2</sub></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Convert and Reset buttons -->
+          <div class="form-group">
+            <button type="button" title="Convert" class="btn btn-success" onclick="convert()"><span>=</span> Convert</button>
+            <button type="reset" title="Reset" class="btn btn-secondary"><span>&times;</span> Reset</button>
+            <button type="button" title="Swap conversion" class="btn btn-secondary" id="swap-btn"><span></span><span>&#8645;</span> Swap</button>
+          </div>
+        </div>
+
+        <!-- Container for output fields -->
+        <div class="output-container">
+          <div class="form-group">
+            <label for="y2" id="y2label">Binary number</label>
+            <div class="input-group">
+              <input type="text" id="y2" class="form-control" readonly>
+              <div class="input-group-append">
+                <span class="input-group-text"><sub id="y2base">2</sub></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="y" id="ylabel">Decimal number</label>
+            <div class="input-group">
+              <input type="text" id="y" class="form-control form-control-lg" readonly>
+              <div class="input-group-append">
+                <span class="input-group-text"><sub id="ybase">10</sub></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="y3" id="y3label">Hex number</label>
+            <div class="input-group">
+              <input type="text" id="y3" class="form-control" readonly>
+              <div class="input-group-append">
+                <span class="input-group-text"><sub id="y3base">16</sub></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+	  </div>
+
+	<!-- JavaScript code -->
+    <script>
+	// Function to convert numbers
+	function convert() 
+	{
+		// Retrieve selected units and input value
+		const unit1 = document.getElementById('unit1').value;
+		const unit2 = document.getElementById('unit2').value;
+		const x = document.getElementById('x').value.trim(); // Trim whitespace from input
+		const y = document.getElementById('y');
+		const y2 = document.getElementById('y2');
+		const y3 = document.getElementById('y3');
+		const xBase = document.getElementById('xbase');
+		  
+		let result;
+
+		// Set the input label and base number based on the selected unit
+		const xLabel = document.querySelector('label[for="x"]');
+		xLabel.textContent = document.querySelector(`option[value="${unit1}"]`).getAttribute('data-input-label');
+		xBase.textContent = document.querySelector(`option[value="${unit1}"]`).getAttribute('data-base');
+
+		if (x === '') 
+		{
+			// Input value is empty, set output fields to empty as well
+			y.value = '';
+			y2.value = '';
+			y3.value = '';
+			return; // Exit the function
+		}
+
+		// Perform conversion based on selected units
+		if (unit1 === 'binary') 
+		{
+		 // Validate binary input
+		if (!/^[01]+$/.test(x)) 
+		{
+		  alert('Invalid binary number. Please enter a valid binary number (0s and 1s only).');
+		  return; // Exit the function
+		}
+			// Convert binary to decimal
+			if (unit2 === 'decimal') 
+			{
+			  result = parseInt(x, 2).toString(10);
+			  y.value = result;
+			  y2.value = '';
+			  y3.value = '';
+			}
+			
+			// Convert binary to hexadecimal
+			else if (unit2 === 'hex') 
+			{
+			  result = parseInt(x, 2).toString(16);
+			  y.value = '';
+			  y2.value = '';
+			  y3.value = result;
+			}
+		} 
+		  
+		else if (unit1 === 'decimal') 
+		{
+			// Convert decimal to binary
+			if (unit2 === 'binary') 
+			{
+			  result = parseInt(x, 10).toString(2);
+			  y.value = '';
+			  y2.value = result;
+			  y3.value = '';
+			}
+			
+			// Convert decimal to hexadecimal
+			else if (unit2 === 'hex') 
+			{
+			  result = parseInt(x, 10).toString(16);
+			  y.value = '';
+			  y2.value = '';
+			  y3.value = result;
+			}
+		} 
+		  
+		else if (unit1 === 'hex') 
+		{
+			// Convert hexadecimal to binary
+			if (unit2 === 'binary') 
+			{
+			  result = parseInt(x, 16).toString(2);
+			  y.value = '';
+			  y2.value = result;
+			  y3.value = '';
+			}
+			
+			// Convert hexadecimal to decimal
+			else if (unit2 === 'decimal') 
+			{
+			  result = parseInt(x, 16).toString(10);
+			  y.value = result;
+			  y2.value = '';
+			  y3.value = '';
+			}
+		}
+	}
+	
+	// Function to swap the conversion direction
+	function swapConversion() 
+	{
+	  const unit1 = document.getElementById('unit1');
+	  const unit2 = document.getElementById('unit2');
+	  const xLabel = document.querySelector('label[for="x"]');
+	  const xBase = document.getElementById('xbase');
+
+	  // Swap the selected units
+	  const temp = unit1.value;
+	  unit1.value = unit2.value;
+	  unit2.value = temp;
+
+	  // Swap the input label and base number
+	  const tempLabel = xLabel.textContent;
+	  xLabel.textContent = document.querySelector(`option[value="${unit1.value}"]`).getAttribute('data-input-label');
+	  xBase.textContent = document.querySelector(`option[value="${unit1.value}"]`).getAttribute('data-base');
+
+	  // Perform the conversion after swapping
+	  convert();
+	}
+
+	// Add onchange event listeners to the unit select elements
+	document.getElementById('unit1').addEventListener('change', function () 
+	{
+	  convert();
+	});
+
+	document.getElementById('unit2').addEventListener('change', convert);
+	
+	// Add click event listener to the "Swap" button
+	document.getElementById('swap-btn').addEventListener('click', swapConversion);
+    </script>
+	
+  </form>
+	  <!-- Footer -->
+      <footer>
+			<p>Created by <a href="#">GROUP 3/CS2514A</a></p>
+            <p>copyright &copy; 2023 </p>
+    </footer>
+	
+</body>
+</html>
